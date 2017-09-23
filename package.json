@@ -1,0 +1,52 @@
+{
+  "name": "meetings",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -w server --exec \"babel-node server\"",
+    "build": "babel server -s -D -d dist",
+    "start": "node dist",
+    "prestart": "npm run -s build",
+    "test": "eslint server"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module"
+    },
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 1
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Tsvetkovv/meetings.git"
+  },
+  "author": "Viktor Tsvetkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tsvetkovv/meetings/issues"
+  },
+  "homepage": "https://github.com/Tsvetkovv/meetings#readme",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "compression": "^1.5.2",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "morgan": "^1.8.0",
+    "resource-router-middleware": "^0.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^3.1.1",
+    "nodemon": "^1.9.2"
+  }
+}
