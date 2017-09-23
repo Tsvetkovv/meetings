@@ -1,5 +1,16 @@
 {
 	"port": 8080,
 	"bodyLimit": "100kb",
-	"corsHeaders": ["Link"]
+	"corsHeaders": [
+		"Link"
+	],
+	"database": {
+		"server": "localhost\\SQLEXPRESS01",
+		"database": "MeetingsDB",
+		"user": "app",
+		"password": "app",
+		"debug": true,
+		"requestTimeout": 2000,
+		"connectionTimeout": 1000
+	}
 }

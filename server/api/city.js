@@ -10,14 +10,29 @@ export default ({ config, db }) => resource({
     /** For requests with an `id`, you can auto-load the entity.
      *  Errors terminate the request, success sets `req[id] = data`.
      */
-    load(req, id, callback) {
-        let facet = facets.find(facet => facet.id === id),
-            err = facet ? null : 'Not found';
-        callback(err, facet);
+    async load(req, id, callback) {
+        const result = await db.request().execute(`CityGet ${id}`);
+        const err = result ? null : 'Not found';
+
+        callback(err, result);
     },
 
     /** GET / - List all entities */
-    index({ params }, res) {
-        res.json(city);
-    }
+    async index({ params }, res) {
+        const result = await db.request().execute(`CityGetAll`);
+
+        res.json(result.recordsets);
+    },
+
+    /** GET /:id - Return a given entity */
+    async read({ city }, res) {
+        const found = city.recordset[0];
+
+        if (found) {
+            res.json(found)
+        } else {
+            res.sendStatus(404);
+        }
+
+    },
 });
