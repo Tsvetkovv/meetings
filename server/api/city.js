@@ -1,38 +1,40 @@
 import resource from 'resource-router-middleware';
-import city from '../models/city';
+import City from '../models/Сity';
 
 export const name = 'city';
-export default ({ config, db }) => resource({
+export default ({ config, db }) => {
+    const city = new City(db);
 
-    /** Property name to store preloaded entity on `request`. */
-    id: name,
+    return resource({
+        id: name,
 
-    /** For requests with an `id`, you can auto-load the entity.
-     *  Errors terminate the request, success sets `req[id] = data`.
-     */
-    async load(req, id, callback) {
-        const result = await db.request().execute(`CityGet ${id}`);
-        const err = result ? null : 'Not found';
+        async load(req, id, callback) {
+            const parsedId = parseInt(id);
 
-        callback(err, result);
-    },
+            if (isNaN(parsedId)) {
+                callback(400);
+            } else {
+                const result = await city.getById(parsedId);
+                callback(null, result)
+            }
+        },
 
-    /** GET / - List all entities */
-    async index({ params }, res) {
-        const result = await db.request().execute(`CityGetAll`);
+        /** GET / - List all entities */
+        async index({ params }, res) {
+            const result = await city.getAll();
 
-        res.json(result.recordsets);
-    },
+            res.json(result);
+        },
 
-    /** GET /:id - Return a given entity */
-    async read({ city }, res) {
-        const found = city.recordset[0];
+        /** GET /:id - Return a given entity */
+        async read(req, res) {
+            const found = req.city;
 
-        if (found) {
-            res.json(found)
-        } else {
-            res.sendStatus(404);
+            if (found) {
+                res.json(found)
+            } else {
+                res.sendStatus(404);
+            }
         }
-
-    },
-});
+    });
+};
