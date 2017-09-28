@@ -1,8 +1,11 @@
 import sql from 'mssql/msnodesqlv8';
-import config from './config.json';
+import config from './config/config';
 
-export default async callback => {
-    const pool  = await sql.connect(config.database);
+const db = callback => {
+    // todo connection pool
+    sql.connect(config.db).then(pool => {
+        callback(pool);
+    });
+};
 
-    callback(pool);
-}
+export default db;

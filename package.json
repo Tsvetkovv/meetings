@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:dev": "set NODE_ENV=development && cd server && nodemon -w server --exec \"babel-node bin/www\"",
     "dev": "nodemon -w server --exec \"babel-node server\"",
     "build": "babel server -s -D -d dist",
     "start": "node dist",
@@ -37,12 +38,24 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.7.1",
+    "debug": "^3.1.0",
+    "dotenv": "^4.0.0",
     "express": "^4.13.3",
+    "express-session": "^1.15.6",
+    "helmet": "^3.8.1",
+    "http": "^0.0.0",
+    "method-override": "^2.3.9",
     "morgan": "^1.8.0",
     "msnodesqlv8": "^0.3.2",
     "mssql": "^4.0.4",
-    "resource-router-middleware": "^0.6.0"
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "resource-router-middleware": "^0.6.0",
+    "wrench": "^1.5.9"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
