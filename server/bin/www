@@ -15,7 +15,6 @@ import app from '../app';
  */
 import config from '../config/config';
 
-console.log(config);
 const port = normalizePort(config.port);
 app.set('port', port);
 
