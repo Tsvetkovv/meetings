@@ -24,7 +24,7 @@ export default class CityModel extends BaseModel {
         }
         return new CityModel({
             id: record.id,
-            name: record.value
+            name: record.name
         })
     }
 }
