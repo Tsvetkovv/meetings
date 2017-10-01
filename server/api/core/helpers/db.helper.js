@@ -6,7 +6,6 @@ let connection = null;
 
 export const request = async () => {
     if (!pool.connected) {
-        console.log('connecting...');
         connection = await pool.connect();
     }
 
@@ -15,6 +14,7 @@ export const request = async () => {
     return req;
 };
 
+export default sql;
 
 export const initDB = () => {
     pool = new sql.ConnectionPool(config.db)

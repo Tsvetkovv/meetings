@@ -14,7 +14,8 @@ export default class CityStorage {
 
     static async getById(id) {
         const dbReq = await request();
-        const dbRes = await dbReq.execute(`CityGet ${id}`);
+        dbReq.input('id', id);
+        const dbRes = await dbReq.execute(`CityGet`);
         const record = dbRes.recordset[0];
 
         return CityModel.dataRecordToModel(record);
