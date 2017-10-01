@@ -32,19 +32,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors);
 app.use(nocache);
 
-//session TODO
-// app.use(session({
-//     saveUninitialized: true,
-//     resave: true,
-//     secret: config.session.secret,
-//     cookie: {
-//         maxAge: config.session.maxAge,
-//         httpOnly: config.session.httpOnly/*,
-//         secure: config.session.secure && config.secure.ssl*/
-//     },
-//     key: config.session.key
-//     // store -> TODO https://www.npmjs.com/package/connect-mssql
-// }));
+app.use(session({
+    saveUninitialized: true,
+    resave: true,
+    secret: config.session.secret,
+    cookie: {
+        maxAge: config.session.maxAge,
+        httpOnly: config.session.httpOnly/*,
+        secure: config.session.secure && config.secure.ssl*/
+    },
+    key: config.session.key
+    // store -> TODO https://www.npmjs.com/package/connect-mssql
+}));
 
 initDB();
 

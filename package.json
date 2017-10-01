@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "set NODE_ENV=development && cd server && nodemon -w server --exec \"babel-node bin/www\"",
-    "dev": "nodemon -w server --exec \"babel-node server\"",
+    "dev": "set NODE_ENV=development && nodemon -w server --exec \"babel-node server/bin/www\"",
     "build": "babel server -s -D -d dist",
     "start": "node dist",
     "prestart": "npm run -s build",

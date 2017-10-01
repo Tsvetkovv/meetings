@@ -1,12 +1,14 @@
+const { env } = process;
+
 export default {
-    port: process.env.PORT,
+    port: env.PORT,
     db: {
-        server: process.env.DB_SERVER,
-        database: process.env.DB_DATABASE,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        port: process.env.DB_PORT,
-        debug: process.env.DB_DEBUG,
+        server: env.DB_SERVER,
+        database: env.DB_DATABASE,
+        user: env.DB_USER,
+        password: env.DB_PASSWORD,
+        port: env.DB_PORT && parseInt(env.DB_PORT),
+        debug: env.DB_DEBUG === 'true',
         pool: {
             max: 10,
             min: 0,
@@ -14,9 +16,9 @@ export default {
         }
     },
     session: {
-        secret: process.env.SESSION_SECRET,
-        maxAge: process.env.SESSION_MAX_AGE,
+        secret: env.SESSION_SECRET,
+        maxAge: env.SESSION_MAX_AGE && parseInt(env.SESSION_MAX_AGE),
         httpOnly: true,
-        key: process.env.SESSION_KEY
+        key: env.SESSION_KEY
     }
 };
