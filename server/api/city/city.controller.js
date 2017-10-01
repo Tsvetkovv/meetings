@@ -1,54 +1,43 @@
-'use strict';
+import { request } from '../core/helpers/db.helper';
+import CityModel from './city.model';
+import cityErrors from './city.errors';
 
-export function read(req, res) {
-    let storage;
-    let dbConn;
-    let groupId = req.params.groupId;
+export async function read(req, res) {
+    const { cityId } = req.params;
 
-    dbConn.connect(function (err) {
-        if (err) {
-            return res.send(500, err.message);
-        }
-        storage = new GroupsStorage(dbConn);
-        storage.getById(groupId, (err, group) => {
-            dbConn.close();
-            if (err) {
-                return res.send(400, err.message);
-            }
-            if(!group){
-                return res.send(404, groupErrors.notFound);
-            }
-            res.json(group);
-        })
-    });
-}
+    let record;
+    try {
+        const dbReq = await request();
+        const dbRes = await dbReq.execute(`CityGet ${cityId}`);
 
-export function list(req, res) {
-    let storage;
-    let dbConn;
-
-    dbConn = dbHelper.getConnection();
-    dbConn.connect(function (err) {
-        if (err) {
-            return res.send(500, err.message);
-        }
-        storage = new GroupsStorage(dbConn);
-        storage.getList(function (err, groups) {
-            dbConn.close();
-            if (err) {
-                return res.send(500, err.message);
-            }
-            res.json(groups);
-        })
-    });
-}
-
-export function validateGroupId(req, res, next, groupId) {
-    groupId = helpers.normalizeId(req.params.groupId);
-
-    if (groupId) {
-        next();
-    }else{
-        res.send(404, groupErrors.notFound);
+        record = dbRes.recordset[0];
+    } catch (err) {
+        return res.status(500).send(err.message);
     }
+
+    const city = CityModel.dataRecordToModel(record);
+
+    if (!city) {
+        return res.status(404).send(cityErrors.notFound);
+    }
+
+    return res.json(city);
+}
+
+export async function list(req, res) {
+    let cities;
+
+    try {
+        const dbReq = await request();
+        const dbRes = await dbReq.execute('CityGetAll');
+        const records = dbRes.recordset;
+
+        if (records) {
+            cities = records.map(record => CityModel.dataRecordToModel(record));
+        }
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
+
+    return res.json(cities);
 }
