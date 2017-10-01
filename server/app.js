@@ -2,7 +2,6 @@ import path from 'path';
 import express from 'express';
 import wrench from 'wrench';
 import logger from 'morgan';
-import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import compress from 'compression';
@@ -13,7 +12,6 @@ import config from './config/config';
 import { initDB } from './api/core/helpers/db.helper';
 // middleware
 import cors from './middleware/cors';
-import nocache from './middleware/nocache';
 import notFound from './middleware/notFound';
 import serverError from './middleware/serverError';
 
@@ -28,9 +26,7 @@ app.use(compress({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser()); // TODO remove it. For session it is deprecated
 app.use(cors);
-app.use(nocache);
 
 app.use(session({
     saveUninitialized: true,
@@ -45,8 +41,13 @@ app.use(session({
     // store -> TODO https://www.npmjs.com/package/connect-mssql
 }));
 
+// helmet
+app.use(helmet());
+app.use(helmet.noCache());
+
 initDB();
 
+// loading routes
 wrench.readdirSyncRecursive('./server/api').filter(file => (/\.(routes.js)$/i).test(file)).map(file => {
     require(path.resolve('./server/api', file)).default(app);
 });
