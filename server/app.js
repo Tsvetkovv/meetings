@@ -10,10 +10,18 @@ import passport from 'passport';
 import config from './config/config';
 
 import { initDB } from './api/core/helpers/db.helper';
-// middleware
+
+/**
+ * Middleware
+ */
 import cors from './middleware/cors';
 import notFound from './middleware/notFound';
 import serverError from './middleware/serverError';
+
+/**
+ * API keys and Passport configuration.
+ */
+const passportConfig = require('./config/passport');
 
 const app = express();
 app.use(logger('dev')); // TODO: winston https://github.com/winstonjs/winston
@@ -40,6 +48,9 @@ app.use(session({
     key: config.session.key
     // store -> TODO https://www.npmjs.com/package/connect-mssql
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // helmet
 app.use(helmet());

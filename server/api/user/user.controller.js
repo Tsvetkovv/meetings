@@ -1,4 +1,5 @@
-import { request } from '../core/helpers/db.helper';
+import passport from 'passport';
+
 import UserModel from './user.model';
 import storage from './user.storage';
 import errors from './user.errors';
@@ -27,7 +28,6 @@ export async function create(req, res) {
     }
 
     return res.status(500).send();
-
 }
 
 export async function read(req, res) {
@@ -55,15 +55,22 @@ export async function list(req, res) {
     }
 }
 
-export async function login(req, res) {
-    const { login, password } = req.body;
-
-    try {
-        return res.json(await storage.checkCredentials(login, password))
-    } catch (err) {
-        if (err.message === errors.incorrectPassword) {
-            return res.status(400).send(err.message);
+export async function login(req, res, next) {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) { return next(err); }
+        if (!user) {
+            return res.status(403).json(info);
         }
-        return res.status(500).send(err.message);
-    }
+        req.logIn(user, (err) => {
+            if (err) { return next(err); }
+
+            return res.sendStatus(204);
+        });
+    })(req, res, next);
+}
+
+export async function logout(req, res) {
+  req.logout();
+
+  return res.sendStatus(204);
 }

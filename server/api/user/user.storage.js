@@ -81,6 +81,9 @@ export default class UserStorage {
         }
         const hash = user.password;
 
-        return await bcrypt.compare(password, hash);
+        if (await bcrypt.compare(password, hash)) {
+            return user;
+        }
+        return null;
     }
 }

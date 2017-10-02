@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { create, list, login, read } from './user.controller';
+import { create, list, login, logout, read } from './user.controller';
+import { isAuthenticated } from '../../config/passport';
 
 const router = Router();
 
@@ -9,10 +10,13 @@ export default (app) => {
 
     router.route('')
     .post(create)
-    .get(list);
+    .get(isAuthenticated, list);
 
     router.route('/login')
     .post(login);
+
+    router.route('/logout')
+    .get(logout);
 
     app.use('/api/user', router);
 };
