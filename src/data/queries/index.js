@@ -1,9 +1,9 @@
-import city from './city';
+import cities from './cities';
 import news from './news';
 import me from './me';
 
 export default {
-  city,
+  cities,
   me,
   news,
 };
