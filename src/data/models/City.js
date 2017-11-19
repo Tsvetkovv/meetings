@@ -9,7 +9,10 @@ const City = Model.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: DataTypes.STRING(255),
+    name: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
   },
   {},
 );

@@ -6,9 +6,9 @@ import {
 } from 'graphql';
 
 export default new GraphQLObjectType({
-  name: 'City',
+  name: 'Goal',
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLInt) },
-    name: { type: new GraphQLNonNull(GraphQLString) },
+    value: { type: new GraphQLNonNull(GraphQLString) },
   }),
 });
