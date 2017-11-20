@@ -72,7 +72,7 @@ if (__DEV__) {
 const graphqlMiddleware = expressGraphQL(req => ({
   schema,
   graphiql: __DEV__,
-  rootValue: { request: req },
+  rootValue: { req },
   pretty: __DEV__,
 }));
 

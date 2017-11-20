@@ -10,14 +10,21 @@ const User = Model.define('User', {
     autoIncrement: true,
     primaryKey: true,
   },
-  name: DataTypes.STRING(255),
+  name: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
   birthday: {
     type: DataTypes.DATE,
     validate: {
       isDate: true,
     },
+    allowNull: false,
   },
-  sex: DataTypes.ENUM('male', 'female'),
+  sex: {
+    type: DataTypes.ENUM('male', 'female'),
+    allowNull: false,
+  },
   cityId: {
     type: DataTypes.INTEGER,
     references: {

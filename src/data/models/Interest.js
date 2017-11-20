@@ -10,6 +10,7 @@ const Interest = Model.define('Interest', {
   value: {
     type: DataTypes.STRING(255),
     allowNull: false,
+    unique: true,
   },
 });
 

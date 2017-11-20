@@ -10,6 +10,7 @@ const Goal = Model.define('Goal', {
   value: {
     type: DataTypes.STRING(255),
     allowNull: false,
+    unique: true,
   },
 });
 
