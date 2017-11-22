@@ -9,7 +9,7 @@ import { Sequelize } from 'sequelize';
 import User from '../models/User';
 import UserType from '../types/UserType';
 import ErrorType from '../types/ErrorType';
-import RequirementType from '../types/RequirementType';
+import { RequirementInputType } from '../types/RequirementType';
 import Interest from '../models/Interest';
 import Requirement from '../models/Requirement';
 
@@ -22,7 +22,7 @@ export default {
     sex: { type: new GraphQLNonNull(GraphQLString) },
     cityId: { type: new GraphQLNonNull(GraphQLInt) },
     goalId: { type: new GraphQLNonNull(GraphQLInt) },
-    requirement: { type: new GraphQLNonNull(RequirementType) },
+    requirement: { type: new GraphQLNonNull(RequirementInputType) },
     interestIds: { type: new GraphQLNonNull(new GraphQLList(GraphQLInt)) },
     photoId: { type: GraphQLInt },
   },
