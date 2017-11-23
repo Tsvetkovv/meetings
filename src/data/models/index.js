@@ -5,6 +5,11 @@ import Goal from './Goal';
 import Interest from './Interest';
 import Requirement from './Requirement';
 
+User.belongsTo(City, {
+  foreignKey: 'cityId',
+  targetKey: 'id',
+});
+
 User.belongsToMany(Interest, {
   as: 'interests',
   through: 'UsersInterests',

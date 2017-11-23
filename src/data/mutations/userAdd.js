@@ -12,6 +12,7 @@ import ErrorType from '../types/ErrorType';
 import { RequirementInputType } from '../types/RequirementType';
 import Interest from '../models/Interest';
 import Requirement from '../models/Requirement';
+import SexType from '../types/SexType';
 
 const Op = Sequelize.Op;
 
@@ -19,11 +20,11 @@ export default {
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
     birthday: { type: new GraphQLNonNull(GraphQLString) },
-    sex: { type: new GraphQLNonNull(GraphQLString) },
+    sex: { type: new GraphQLNonNull(SexType) },
     cityId: { type: new GraphQLNonNull(GraphQLInt) },
     goalId: { type: new GraphQLNonNull(GraphQLInt) },
-    requirement: { type: new GraphQLNonNull(RequirementInputType) },
-    interestIds: { type: new GraphQLNonNull(new GraphQLList(GraphQLInt)) },
+    requirement: { type: RequirementInputType },
+    interestIds: { type: new GraphQLList(GraphQLInt) },
     photoId: { type: GraphQLInt },
   },
   type: UserType,
@@ -33,26 +34,30 @@ export default {
   ) {
     let user;
     // TODO  validate date
-
     try {
-      const dbRequirement = await Requirement.create(requirement);
+      const dbRequirement =
+        requirement && (await Requirement.create(requirement));
       user = await User.create({
         name,
-        birthday: utc(birthday),
+        // birthday: utc(birthday, 'YYYY-MM-DD').format('YYYYMMDD'),
+        birthday: utc(birthday, 'YYYY-MM-DD').toDate(),
         sex,
         cityId,
         goalId,
-        requirementId: dbRequirement.id,
+        requirementId: requirement && dbRequirement.id,
         photoId,
       });
-      const interests = await Interest.findAll({
-        where: {
-          id: {
-            [Op.in]: interestIds,
+
+      if (interestIds && interestIds.length) {
+        const interests = await Interest.findAll({
+          where: {
+            id: {
+              [Op.in]: interestIds,
+            },
           },
-        },
-      });
-      await user.setInterests(interests);
+        });
+        await user.setInterests(interests);
+      }
     } catch (e) {
       throw new ErrorType([e]);
     }

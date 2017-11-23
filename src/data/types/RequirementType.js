@@ -6,18 +6,18 @@ import {
   GraphQLInputObjectType,
 } from 'graphql';
 
+const fields = {
+  ageBefore: { type: new GraphQLNonNull(GraphQLInt) },
+  ageAfter: { type: new GraphQLNonNull(GraphQLInt) },
+  sex: { type: new GraphQLNonNull(GraphQLString) },
+};
+
 export default new GraphQLObjectType({
   name: 'RequirementType',
-  fields: () => ({
-    ageBefore: { type: new GraphQLNonNull(GraphQLInt) },
-    value: { type: new GraphQLNonNull(GraphQLString) },
-  }),
+  fields: () => fields,
 });
 
 export const RequirementInputType = new GraphQLInputObjectType({
-  name: 'RequirementType',
-  fields: () => ({
-    ageBefore: { type: new GraphQLNonNull(GraphQLInt) },
-    value: { type: new GraphQLNonNull(GraphQLString) },
-  }),
+  name: 'RequirementInputType',
+  fields: () => fields,
 });
