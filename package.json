@@ -36,6 +36,7 @@
     "react-apollo": "^1.4.3",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
+    "react-table": "^6.7.4",
     "redux": "^3.7.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",

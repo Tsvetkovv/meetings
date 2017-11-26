@@ -1,0 +1,17 @@
+query Users {
+  users {
+    id
+    name
+    birthday
+    sex
+    city {
+      name
+    }
+    goal {
+      value
+    }
+    interests {
+      value
+    }
+  }
+}

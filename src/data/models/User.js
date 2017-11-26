@@ -1,4 +1,5 @@
 import { DataTypes } from 'sequelize';
+import moment from 'moment';
 import Model from '../sequelize';
 
 const User = Model.define(
@@ -50,6 +51,9 @@ const User = Model.define(
           id: this.City.id,
           name: this.City.name,
         };
+      },
+      birthday() {
+        return moment.utc(this.dataValues.birthday).format('YYYY-MM-DD');
       },
       goal() {
         if (!this.Goal) {
