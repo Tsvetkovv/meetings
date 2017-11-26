@@ -10,24 +10,24 @@ User.belongsTo(City, {
   targetKey: 'id',
 });
 
+User.belongsTo(Goal, {
+  foreignKey: 'goalId',
+  targetKey: 'id',
+});
+
 User.belongsToMany(Interest, {
-  as: 'interests',
   through: 'UsersInterests',
   foreignKey: 'userId',
-});
-Interest.belongsToMany(User, {
-  as: 'users',
-  through: 'UsersInterests',
-  foreignKey: 'interestId',
 });
 
 Interest.belongsToMany(Requirement, {
   through: 'InterestsRequirements',
   foreignKey: 'interestId',
 });
+
 Requirement.belongsToMany(Interest, {
   through: 'InterestsRequirements',
-  foreignKey: 'interestId',
+  foreignKey: 'requirementId',
 });
 
 function sync(...args) {

@@ -1,7 +1,5 @@
 import { DataTypes } from 'sequelize';
 import Model from '../sequelize';
-import Goal from './Goal';
-import Interest from './Interest';
 
 const User = Model.define(
   'User',
@@ -28,33 +26,46 @@ const User = Model.define(
     },
     cityId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    goalId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     photoId: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    goalId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Goal,
-        key: 'id',
-      },
-    },
     requirementId: {
       type: DataTypes.INTEGER,
-      references: {
-        model: Interest,
-        key: 'id',
-      },
     },
   },
   {
     getterMethods: {
       city() {
+        if (!this.City) {
+          throw new Error('You should include a City in request');
+        }
         return {
           id: this.City.id,
           name: this.City.name,
         };
+      },
+      goal() {
+        if (!this.Goal) {
+          throw new Error('You should include a Goal in request');
+        }
+        return {
+          id: this.Goal.id,
+          value: this.Goal.value,
+        };
+      },
+      interests() {
+        if (!this.Interests) {
+          throw new Error('You should include a Interests in request');
+        }
+
+        return this.Interests;
       },
     },
   },
