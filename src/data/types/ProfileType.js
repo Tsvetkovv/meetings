@@ -11,8 +11,8 @@ import GoalType from './GoalType';
 import RequirementType from './RequirementType';
 import InterestType from './InterestType';
 
-const UserType = new GraphQLObjectType({
-  name: 'User',
+const ProfileType = new GraphQLObjectType({
+  name: 'Profile',
   fields: {
     id: { type: new GraphQLNonNull(GraphQLInt) },
     name: { type: new GraphQLNonNull(GraphQLString) },
@@ -26,4 +26,4 @@ const UserType = new GraphQLObjectType({
   },
 });
 
-export default UserType;
+export default ProfileType;

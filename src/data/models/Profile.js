@@ -2,8 +2,8 @@ import { DataTypes } from 'sequelize';
 import moment from 'moment';
 import Model from '../sequelize';
 
-const User = Model.define(
-  'User',
+const Profile = Model.define(
+  'Profile',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -75,4 +75,4 @@ const User = Model.define(
   },
 );
 
-export default User;
+export default Profile;

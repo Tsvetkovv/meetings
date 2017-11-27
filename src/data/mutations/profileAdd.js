@@ -6,8 +6,8 @@ import {
 } from 'graphql';
 import { utc } from 'moment';
 import { Sequelize } from 'sequelize';
-import User from '../models/User';
-import UserType from '../types/UserType';
+import Profile from '../models/Profile';
+import ProfileType from '../types/ProfileType';
 import ErrorType from '../types/ErrorType';
 import { RequirementInputType } from '../types/RequirementType';
 import Interest from '../models/Interest';
@@ -27,17 +27,17 @@ export default {
     interestIds: { type: new GraphQLList(GraphQLInt) },
     photoId: { type: GraphQLInt },
   },
-  type: UserType,
+  type: ProfileType,
   async resolve(
     root,
     { name, birthday, sex, cityId, goalId, requirement, photoId, interestIds },
   ) {
-    let user;
+    let profile;
     // TODO  validate date
     try {
       const dbRequirement =
         requirement && (await Requirement.create(requirement));
-      user = await User.create({
+      profile = await Profile.create({
         name,
         // birthday: utc(birthday, 'YYYY-MM-DD').format('YYYYMMDD'),
         birthday: utc(birthday, 'YYYY-MM-DD').toDate(),
@@ -56,12 +56,12 @@ export default {
             },
           },
         });
-        await user.setInterests(interests);
+        await profile.setInterests(interests);
       }
     } catch (e) {
       throw new ErrorType([e]);
     }
 
-    return user;
+    return profile;
   },
 };

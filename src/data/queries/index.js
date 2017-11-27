@@ -1,7 +1,7 @@
 import cities from './cities';
 import goals from './goals';
 import interests from './interests';
-import users from './users';
+import profiles from './profiles';
 import news from './news';
 import me from './me';
 
@@ -9,7 +9,7 @@ export default {
   cities,
   goals,
   interests,
-  users,
+  profiles,
   me,
   news,
 };

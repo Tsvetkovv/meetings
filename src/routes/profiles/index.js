@@ -1,14 +1,14 @@
 import React from 'react';
-import Users from './Users';
+import Profiles from './Profiles';
 import Layout from '../../components/Layout';
 
 async function action() {
   return {
-    chunks: ['users'],
-    title: 'Users',
+    chunks: ['profiles'],
+    title: 'Profiles',
     component: (
       <Layout>
-        <Users />
+        <Profiles />
       </Layout>
     ),
   };

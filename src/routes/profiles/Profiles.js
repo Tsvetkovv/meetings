@@ -4,14 +4,14 @@ import { graphql, compose } from 'react-apollo';
 import moment from 'moment';
 import ReactTable from 'react-table';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import usersQuery from './users.graphql';
+import profilesQuery from './profiles.graphql';
 import columnDefinitions from './columnDefinitions';
-import s from './Users.css';
+import s from './Profiles.css';
 
-class Users extends React.Component {
+class Profiles extends React.Component {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
-    users: PropTypes.arrayOf(
+    profiles: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
@@ -25,18 +25,18 @@ class Users extends React.Component {
   };
 
   static defaultProps = {
-    users: [],
+    profiles: [],
   };
 
   render() {
-    const { loading, users } = this.props;
+    const { loading, profiles } = this.props;
     return (
       <div className={s.root}>
         <div className={s.container}>
-          <h1>Users</h1>
+          <h1>Profiles</h1>
           <ReactTable
             loading={loading}
-            data={users}
+            data={profiles}
             columns={columnDefinitions}
             defaultPageSize={10}
             className="-striped -highlight"
@@ -49,18 +49,18 @@ class Users extends React.Component {
 
 export default compose(
   withStyles(s),
-  graphql(usersQuery, {
-    props: ({ data: { users, loading } }) => ({
-      users:
-        users &&
-        users.map(user => ({
-          ...user,
-          birthday: moment.utc(user.birthday),
-          city: user.city.name,
-          goal: user.goal.value,
-          interests: user.interests.map(i => i.value),
+  graphql(profilesQuery, {
+    props: ({ data: { profiles, loading } }) => ({
+      profiles:
+        profiles &&
+        profiles.map(profile => ({
+          ...profile,
+          birthday: moment.utc(profile.birthday),
+          city: profile.city.name,
+          goal: profile.goal.value,
+          interests: profile.interests.map(i => i.value),
         })),
       loading,
     }),
   }),
-)(Users);
+)(Profiles);

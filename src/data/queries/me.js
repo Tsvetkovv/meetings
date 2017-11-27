@@ -1,7 +1,7 @@
-import UserType from '../types/UserType';
+import ProfileType from '../types/ProfileType';
 
 const me = {
-  type: UserType,
+  type: ProfileType,
   resolve({ request }) {
     return (
       request.user && {

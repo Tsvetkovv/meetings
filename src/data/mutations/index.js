@@ -1,5 +1,5 @@
-import userAdd from './userAdd';
+import profileAdd from './profileAdd';
 
 export default {
-  userAdd,
+  profileAdd,
 };
