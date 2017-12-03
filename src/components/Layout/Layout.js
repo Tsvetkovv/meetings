@@ -6,6 +6,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import normalizeCss from 'normalize.css';
 import reactTableCss from 'react-table/react-table.css';
 import reactSelect from 'react-select/dist/react-select.css';
+import reactDatepicker from 'react-datepicker/dist/react-datepicker.css';
 import s from './Layout.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
@@ -28,4 +29,10 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, reactTableCss, reactSelect, s)(Layout);
+export default withStyles(
+  normalizeCss,
+  reactTableCss,
+  reactSelect,
+  reactDatepicker,
+  s,
+)(Layout);

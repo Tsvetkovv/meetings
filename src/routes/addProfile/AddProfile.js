@@ -2,13 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { withHandlers } from 'recompose';
+import moment from 'moment';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import addProfile from './addProfile.graphql';
 import s from './AddProfile.css';
 import CitySelector from '../../components/CitySelector';
+import GoalSelector from '../../components/GoalSelector';
+import SexSelector from '../../components/SexSelector';
+import history from '../../history';
+import BirthdaySelector from '../../components/BirthdaySelector';
 
+const getAge = bd => moment().diff(bd, 'years');
 const required = val => !!val;
+const isLegal = birthday => !birthday || getAge(birthday) >= 18;
+const validAge = birthday => !birthday || getAge(birthday) <= 120;
 const length = val => !val || val.length >= 3;
 
 @withStyles(s)
@@ -38,7 +46,7 @@ const length = val => !val || val.length >= 3;
     })
       .then(
         /* data */ () => {
-          // TODO
+          history.push('/profiles');
         },
       )
       .catch(e => {
@@ -50,9 +58,12 @@ class AddProfile extends React.Component {
     toggleMutation: PropTypes.func.isRequired,
   };
 
-  handleSubmit = ({ city, ...restValues }) => {
+  handleSubmit = ({ city, sex, birthday, goal, ...restValues }) => {
     this.props.toggleMutation({
       cityId: city.value,
+      goalId: goal.value,
+      sex: sex.value,
+      birthday: birthday.format('YYYY-MM-DD'),
       ...restValues,
     });
   };
@@ -92,6 +103,59 @@ class AddProfile extends React.Component {
                 show="touched"
                 messages={{
                   required: 'Required',
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="local.goal">Goal: </label>
+              <Control
+                model=".goal"
+                component={GoalSelector}
+                validators={{ required }}
+                mapProps={({ ownProps }) => ({ ...ownProps })}
+              />
+              <Errors
+                className={s.error}
+                model=".goal"
+                show="touched"
+                messages={{
+                  required: 'Required',
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="local.sex">Sex: </label>
+              <Control
+                model=".sex"
+                component={SexSelector}
+                validators={{ required }}
+                mapProps={({ ownProps }) => ({ ...ownProps })}
+              />
+              <Errors
+                className={s.error}
+                model=".sex"
+                show="touched"
+                messages={{
+                  required: 'Required',
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="local.birthday">Birthday: </label>
+              <Control
+                model=".birthday"
+                component={BirthdaySelector}
+                validators={{ required, isLegal, validAge }}
+                mapProps={({ ownProps }) => ({ ...ownProps })}
+              />
+              <Errors
+                className={s.error}
+                model=".birthday"
+                show="touched"
+                messages={{
+                  required: 'Required',
+                  isLegal: 'Only +18',
+                  validAge: 'Too old',
                 }}
               />
             </div>

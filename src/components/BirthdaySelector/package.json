@@ -1,0 +1,6 @@
+{
+  "name": "BirthdaySelector",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./BirthdaySelector.js"
+}

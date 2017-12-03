@@ -7,6 +7,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import profilesQuery from './profiles.graphql';
 import columnDefinitions from './columnDefinitions';
 import s from './Profiles.css';
+import Link from '../../components/Link';
 
 class Profiles extends React.Component {
   static propTypes = {
@@ -34,6 +35,7 @@ class Profiles extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>Profiles</h1>
+          <Link to="/addProfile">Add new profile</Link>
           <ReactTable
             loading={loading}
             data={profiles}

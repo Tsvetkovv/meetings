@@ -8,7 +8,6 @@ import { utc } from 'moment';
 import { Sequelize } from 'sequelize';
 import Profile from '../models/Profile';
 import ProfileType from '../types/ProfileType';
-import ErrorType from '../types/ErrorType';
 import { RequirementInputType } from '../types/RequirementType';
 import Interest from '../models/Interest';
 import Requirement from '../models/Requirement';
@@ -19,7 +18,10 @@ const Op = Sequelize.Op;
 export default {
   args: {
     name: { type: new GraphQLNonNull(GraphQLString) },
-    birthday: { type: new GraphQLNonNull(GraphQLString) },
+    birthday: {
+      description: 'YYYY-MM-DD', // TODO
+      type: new GraphQLNonNull(GraphQLString),
+    },
     sex: { type: new GraphQLNonNull(SexType) },
     cityId: { type: new GraphQLNonNull(GraphQLInt) },
     goalId: { type: new GraphQLNonNull(GraphQLInt) },
@@ -32,34 +34,29 @@ export default {
     root,
     { name, birthday, sex, cityId, goalId, requirement, photoId, interestIds },
   ) {
-    let profile;
     // TODO  validate date
-    try {
-      const dbRequirement =
-        requirement && (await Requirement.create(requirement));
-      profile = await Profile.create({
-        name,
-        // birthday: utc(birthday, 'YYYY-MM-DD').format('YYYYMMDD'),
-        birthday: utc(birthday, 'YYYY-MM-DD').toDate(),
-        sex,
-        cityId,
-        goalId,
-        requirementId: requirement && dbRequirement.id,
-        photoId,
-      });
+    const dbRequirement =
+      requirement && (await Requirement.create(requirement));
+    const profile = await Profile.create({
+      name,
+      // birthday: utc(birthday, 'YYYY-MM-DD').format('YYYYMMDD'),
+      birthday: utc(birthday, 'YYYY-MM-DD').toDate(),
+      sex,
+      cityId,
+      goalId,
+      requirementId: requirement && dbRequirement.id,
+      photoId,
+    });
 
-      if (interestIds && interestIds.length) {
-        const interests = await Interest.findAll({
-          where: {
-            id: {
-              [Op.in]: interestIds,
-            },
+    if (interestIds && interestIds.length) {
+      const interests = await Interest.findAll({
+        where: {
+          id: {
+            [Op.in]: interestIds,
           },
-        });
-        await profile.setInterests(interests);
-      }
-    } catch (e) {
-      throw new ErrorType([e]);
+        },
+      });
+      await profile.setInterests(interests);
     }
 
     return profile;
