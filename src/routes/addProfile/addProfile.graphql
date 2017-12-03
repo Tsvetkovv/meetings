@@ -1,0 +1,19 @@
+mutation addProfile(
+  $name: String!
+  $birthday: String!
+  $sex: Sex!
+  $cityId: Int!
+  $goalId: Int!
+  $interestIds: [Int]
+) {
+  profileAdd(
+    name: $name
+    birthday: $birthday
+    sex: $sex
+    cityId: $cityId
+    goalId: $goalId
+    interestIds: $interestIds
+  ) {
+    id
+  }
+}

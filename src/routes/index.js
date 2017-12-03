@@ -15,6 +15,10 @@ const routes = {
       load: () => import(/* webpackChunkName: 'profiles' */ './profiles'),
     },
     {
+      path: '/addProfile',
+      load: () => import(/* webpackChunkName: 'addProfile' */ './addProfile'),
+    },
+    {
       path: '/contact',
       load: () => import(/* webpackChunkName: 'contact' */ './contact'),
     },
