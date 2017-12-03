@@ -5,6 +5,7 @@ import withStyles from 'isomorphic-style-loader/lib/withStyles';
 // external-global styles must be imported in your JS.
 import normalizeCss from 'normalize.css';
 import reactTableCss from 'react-table/react-table.css';
+import reactSelect from 'react-select/dist/react-select.css';
 import s from './Layout.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
@@ -27,4 +28,4 @@ class Layout extends React.Component {
   }
 }
 
-export default withStyles(normalizeCss, reactTableCss, s)(Layout);
+export default withStyles(normalizeCss, reactTableCss, reactSelect, s)(Layout);

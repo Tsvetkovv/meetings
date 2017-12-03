@@ -1,0 +1,6 @@
+query {
+  cities {
+    id
+    name
+  }
+}

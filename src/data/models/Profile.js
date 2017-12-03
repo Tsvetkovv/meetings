@@ -53,7 +53,9 @@ const Profile = Model.define(
         };
       },
       birthday() {
-        return moment.utc(this.dataValues.birthday).format('YYYY-MM-DD');
+        return moment
+          .utc(new Date(this.dataValues.birthday))
+          .format('YYYY-MM-DD');
       },
       goal() {
         if (!this.Goal) {

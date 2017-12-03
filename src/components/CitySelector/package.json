@@ -1,0 +1,6 @@
+{
+  "name": "CitySelector",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CitySelector.js"
+}
