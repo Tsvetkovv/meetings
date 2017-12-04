@@ -3,6 +3,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import { AGE } from '../../../constants';
 import s from './BirthdaySelector.css';
 
 @withStyles(s)
@@ -33,8 +34,8 @@ class BirthdaySelector extends React.Component {
       <div className={s.root}>
         <DatePicker
           {...props}
-          minDate={moment().subtract(120, 'years')}
-          maxDate={moment().subtract(18, 'years')}
+          minDate={moment().subtract(AGE.max, 'years')}
+          maxDate={moment().subtract(AGE.min, 'years')}
           onChangeRaw={event => this.props.onChange(moment(event.target.value))}
           selected={value}
         />

@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import Model from '../sequelize';
-import { SEX } from '../../constants/index';
+import { AGE, SEX } from '../../constants';
 
 const Requirement = Model.define('Requirement', {
   id: {
@@ -11,20 +11,19 @@ const Requirement = Model.define('Requirement', {
   ageBefore: {
     type: DataTypes.INTEGER,
     validate: {
-      min: 16,
-      max: 120,
+      min: AGE.min,
+      max: AGE.max,
     },
   },
   ageAfter: {
     type: DataTypes.INTEGER,
     validate: {
-      min: 16,
-      max: 120,
+      min: AGE.min,
+      max: AGE.max,
     },
   },
   sex: {
     type: DataTypes.ENUM(SEX.male, SEX.female),
-    allowNull: false,
   },
 });
 

@@ -2,14 +2,14 @@ import {
   GraphQLObjectType,
   GraphQLNonNull,
   GraphQLInt,
-  GraphQLString,
   GraphQLInputObjectType,
 } from 'graphql';
+import SexType from './SexType';
 
 const fields = {
   ageBefore: { type: new GraphQLNonNull(GraphQLInt) },
   ageAfter: { type: new GraphQLNonNull(GraphQLInt) },
-  sex: { type: new GraphQLNonNull(GraphQLString) },
+  sex: { type: SexType },
 };
 
 export default new GraphQLObjectType({

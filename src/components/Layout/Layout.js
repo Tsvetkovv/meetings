@@ -7,6 +7,7 @@ import normalizeCss from 'normalize.css';
 import reactTableCss from 'react-table/react-table.css';
 import reactSelect from 'react-select/dist/react-select.css';
 import reactDatepicker from 'react-datepicker/dist/react-datepicker.css';
+import reactInputRange from 'react-input-range/lib/css/index.css';
 import s from './Layout.css';
 import Header from '../Header';
 import Feedback from '../Feedback';
@@ -34,5 +35,6 @@ export default withStyles(
   reactTableCss,
   reactSelect,
   reactDatepicker,
+  reactInputRange,
   s,
 )(Layout);

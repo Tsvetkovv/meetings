@@ -1,0 +1,6 @@
+{
+  "name": "AgeSelector",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AgeSelector.js"
+}

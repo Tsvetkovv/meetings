@@ -5,6 +5,7 @@ mutation addProfile(
   $cityId: Int!
   $goalId: Int!
   $interestIds: [Int]
+  $requirement: RequirementInputType
 ) {
   profileAdd(
     name: $name
@@ -13,6 +14,7 @@ mutation addProfile(
     cityId: $cityId
     goalId: $goalId
     interestIds: $interestIds
+    requirement: $requirement
   ) {
     id
   }

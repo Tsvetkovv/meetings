@@ -5,18 +5,21 @@ import { withHandlers } from 'recompose';
 import moment from 'moment';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import addProfile from './addProfile.graphql';
-import s from './AddProfile.css';
-import CitySelector from '../../components/CitySelector';
-import GoalSelector from '../../components/GoalSelector';
-import SexSelector from '../../components/SexSelector';
 import history from '../../history';
-import BirthdaySelector from '../../components/BirthdaySelector';
+import addProfile from './addProfile.graphql';
+import { AGE } from '../../constants';
+import CitySelector from '../../components/inputs/CitySelector';
+import GoalSelector from '../../components/inputs/GoalSelector';
+import SexSelector from '../../components/inputs/SexSelector';
+import BirthdaySelector from '../../components/inputs/BirthdaySelector';
+import InterestSelector from '../../components/inputs/InterestSelector';
+import s from './AddProfile.css';
+import AgeSelector from '../../components/inputs/AgeSelector';
 
 const getAge = bd => moment().diff(bd, 'years');
 const required = val => !!val;
-const isLegal = birthday => !birthday || getAge(birthday) >= 18;
-const validAge = birthday => !birthday || getAge(birthday) <= 120;
+const isLegal = birthday => !birthday || getAge(birthday) >= AGE.min;
+const validAge = birthday => !birthday || getAge(birthday) <= AGE.max;
 const length = val => !val || val.length >= 3;
 
 @withStyles(s)
@@ -58,11 +61,25 @@ class AddProfile extends React.Component {
     toggleMutation: PropTypes.func.isRequired,
   };
 
-  handleSubmit = ({ city, sex, birthday, goal, ...restValues }) => {
+  handleSubmit = ({
+    city,
+    sex,
+    birthday,
+    goal,
+    interests,
+    partner,
+    ...restValues
+  }) => {
     this.props.toggleMutation({
       cityId: city.value,
       goalId: goal.value,
       sex: sex.value,
+      requirement: {
+        ageBefore: partner.age.min,
+        ageAfter: partner.age.max,
+        sex: (partner.sex || null) && partner.sex.value,
+      },
+      interestIds: (interests || null) && interests.map(i => i.value),
       birthday: birthday.format('YYYY-MM-DD'),
       ...restValues,
     });
@@ -73,7 +90,17 @@ class AddProfile extends React.Component {
       <div className={s.root}>
         <div className={s.container}>
           <h1>Add new profile</h1>
-          <LocalForm onSubmit={this.handleSubmit}>
+          <LocalForm
+            initialState={{
+              partner: {
+                age: {
+                  min: AGE.min,
+                  max: AGE.max,
+                },
+              },
+            }}
+            onSubmit={this.handleSubmit}
+          >
             <div>
               <label htmlFor="local.name">Name: </label>
               <Control model=".name" validators={{ required, length }} />
@@ -157,6 +184,31 @@ class AddProfile extends React.Component {
                   isLegal: 'Only +18',
                   validAge: 'Too old',
                 }}
+              />
+            </div>
+            <div>
+              <label htmlFor="local.interests">Interests: </label>
+              <Control
+                model=".interests"
+                component={InterestSelector}
+                mapProps={({ ownProps }) => ({ ...ownProps })}
+              />
+            </div>
+            <h3>Partner preferences</h3>
+            <div>
+              <label htmlFor="local.partner.age">Age: </label>
+              <Control
+                model=".partner.age"
+                component={AgeSelector}
+                mapProps={({ ownProps }) => ({ ...ownProps })}
+              />
+            </div>
+            <div>
+              <label htmlFor="local.partner.sex">Sex: </label>
+              <Control
+                model=".partner.sex"
+                component={SexSelector}
+                mapProps={({ ownProps }) => ({ ...ownProps })}
               />
             </div>
             <button type="submit">Submit</button>

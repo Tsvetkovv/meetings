@@ -1,0 +1,6 @@
+query {
+  interests {
+    id
+    value
+  }
+}
