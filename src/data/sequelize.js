@@ -1,10 +1,12 @@
 import { Sequelize, DataTypes } from 'sequelize';
+import { db } from '../config';
 
-const sequelize = new Sequelize('MeetingsReborn', 'app2', 'app2', {
-  host: 'localhost',
+const sequelize = new Sequelize(db.table, db.login, db.password, {
+  host: db.url,
   dialect: 'mssql',
   dialectOptions: {
-    instanceName: 'SQLEXPRESS01',
+    instanceName: db.instanceName,
+    encrypt: db.encrypt,
   },
   define: {
     freezeTableName: true,

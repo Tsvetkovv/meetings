@@ -21,7 +21,14 @@ module.exports = {
   },
 
   // Database
-  databaseUrl: process.env.DATABASE_URL || 'sqlite:database.sqlite',
+  db: {
+    url: process.env.DATABASE_URL || 'localhost',
+    table: process.env.DATABASE_TABLE || 'MeetingsReborn',
+    login: process.env.DATABASE_LOGIN || 'app2',
+    password: process.env.DATABASE_PASSWORD || 'app2',
+    instanceName: process.env.DATABASE_INSTANCE,
+    encrypt: (process.env.DATABASE_ENCRYPT || 'true') !== 'false',
+  },
 
   // Web analytics
   analytics: {

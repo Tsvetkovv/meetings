@@ -6,6 +6,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import createLaunchEditorMiddleware from 'react-error-overlay/middleware';
 import webpackConfig from './webpack.config';
+import '../env';
 import run, { format } from './run';
 import clean from './clean';
 
