@@ -15,6 +15,11 @@ Profile.belongsTo(Goal, {
   targetKey: 'id',
 });
 
+Profile.belongsTo(Requirement, {
+  foreignKey: 'requirementId',
+  targetKey: 'id',
+});
+
 Profile.belongsToMany(Interest, {
   through: 'ProfilesInterests',
   foreignKey: 'profileId',

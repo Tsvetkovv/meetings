@@ -73,6 +73,10 @@ const Profile = Model.define(
 
         return this.Interests;
       },
+
+      requirement() {
+        return this.Requirement;
+      },
     },
   },
 );

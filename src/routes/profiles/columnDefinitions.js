@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default [
   {
     Header: 'Name',
@@ -22,16 +20,16 @@ export default [
     Header: 'Goal',
     accessor: 'goal',
   },
-  {
-    Header: 'Interests',
-    accessor: 'interests',
-    Cell: row =>
-      <span>
-        {row.value.map(v =>
-          <div key={v}>
-            {v}
-          </div>,
-        )}
-      </span>,
-  },
+  // {
+  //   Header: 'Interests',
+  //   accessor: 'interests',
+  //   Cell: row =>
+  //     <span>
+  //       {row.value.map(v =>
+  //         <div key={v}>
+  //           {v}
+  //         </div>,
+  //       )}
+  //     </span>,
+  // },
 ];

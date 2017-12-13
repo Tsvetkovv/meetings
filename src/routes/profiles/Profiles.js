@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, compose } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import moment from 'moment';
 import ReactTable from 'react-table';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
@@ -8,6 +8,7 @@ import profilesQuery from './profiles.graphql';
 import columnDefinitions from './columnDefinitions';
 import s from './Profiles.css';
 import Link from '../../components/Link';
+import ProfileDetails from '../../components/ProfileDetails';
 
 class Profiles extends React.Component {
   static propTypes = {
@@ -21,6 +22,11 @@ class Profiles extends React.Component {
         city: PropTypes.string.isRequired,
         goal: PropTypes.string.isRequired,
         interests: PropTypes.arrayOf(PropTypes.string.isRequired),
+        requirement: PropTypes.shape({
+          ageAfter: PropTypes.number,
+          ageBefore: PropTypes.number,
+          sex: PropTypes.string,
+        }),
       }),
     ),
   };
@@ -42,6 +48,12 @@ class Profiles extends React.Component {
             columns={columnDefinitions}
             defaultPageSize={10}
             className="-striped -highlight"
+            SubComponent={({ original: { interests, name, requirement } }) =>
+              <ProfileDetails
+                name={name}
+                interests={interests}
+                requirement={requirement}
+              />}
           />
         </div>
       </div>
