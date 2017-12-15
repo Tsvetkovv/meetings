@@ -48,8 +48,11 @@ class Profiles extends React.Component {
             columns={columnDefinitions}
             defaultPageSize={10}
             className="-striped -highlight"
-            SubComponent={({ original: { interests, name, requirement } }) =>
+            SubComponent={({
+              original: { id, interests, name, requirement },
+            }) =>
               <ProfileDetails
+                id={id}
                 name={name}
                 interests={interests}
                 requirement={requirement}

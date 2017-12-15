@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import InterestPreference from './InterestPreference';
 import AgePreference from './AgePreference';
 import SexPreference from './SexPreference';
+import DeleteControl from './DeleteControl/DeleteControl';
 
 class ProfileDetails extends React.Component {
   static propTypes = {
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
     requirement: PropTypes.shape({
       ageAfter: PropTypes.number,
       ageBefore: PropTypes.number,
       sex: PropTypes.string,
     }),
-    name: PropTypes.string.isRequired,
     interests: PropTypes.arrayOf(PropTypes.string),
   };
 
@@ -21,7 +23,7 @@ class ProfileDetails extends React.Component {
   };
 
   render() {
-    const { name, requirement, interests } = this.props;
+    const { id, name, requirement, interests } = this.props;
 
     return (
       <div style={{ padding: '20px' }}>
@@ -36,6 +38,7 @@ class ProfileDetails extends React.Component {
             />{' '}
             <SexPreference sex={requirement.sex} />
           </div>}
+        <DeleteControl id={id} />
       </div>
     );
   }

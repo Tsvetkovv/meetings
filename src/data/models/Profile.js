@@ -81,4 +81,20 @@ const Profile = Model.define(
   },
 );
 
+Profile.findById = function(id) {
+  return this.find({
+    where: {
+      id,
+    },
+  });
+};
+
+Profile.destroyById = function(id) {
+  return this.destroy({
+    where: {
+      id,
+    },
+  });
+};
+
 export default Profile;

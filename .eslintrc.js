@@ -34,6 +34,7 @@ module.exports = {
         mjs: 'never',
       },
     ],
+    'func-names': 'off',
     'jsx-a11y/href-no-hash': 'off',
     'jsx-a11y/no-autofocus': 'off',
     'jsx-a11y/label-has-for': 'off',

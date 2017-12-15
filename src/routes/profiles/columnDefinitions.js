@@ -1,5 +1,10 @@
 export default [
   {
+    Header: '#',
+    accessor: 'id',
+    width: 40,
+  },
+  {
     Header: 'Name',
     accessor: 'name',
   },

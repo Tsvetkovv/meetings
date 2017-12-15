@@ -1,0 +1,3 @@
+mutation profileDelete($id: Int!) {
+  profileDelete(id: $id)
+}
