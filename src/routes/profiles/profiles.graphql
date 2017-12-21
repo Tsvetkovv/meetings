@@ -18,5 +18,9 @@ query Profiles {
       ageBefore
       sex
     }
+    partner {
+      id
+      name
+    }
   }
 }

@@ -7,6 +7,8 @@ const sequelize = new Sequelize(db.table, db.login, db.password, {
   dialectOptions: {
     instanceName: db.instanceName,
     encrypt: db.encrypt,
+    useUTC: true, // for reading from database
+    timezone: 'UTC', // for writing to database
   },
   define: {
     freezeTableName: true,

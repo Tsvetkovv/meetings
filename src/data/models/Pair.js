@@ -2,43 +2,27 @@ import { DataTypes, QueryTypes } from 'sequelize';
 import moment from 'moment';
 import Model from '../sequelize';
 
-const Profile = Model.define(
-  'Profile',
+const Pair = Model.define(
+  'Pair',
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: false,
-    },
-    birthday: {
+    dateStart: {
       type: DataTypes.DATE,
       validate: {
         isDate: true,
       },
       allowNull: false,
     },
-    sex: {
-      type: DataTypes.ENUM('male', 'female'),
-      allowNull: false,
-    },
-    cityId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    goalId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    photoId: {
-      type: DataTypes.INTEGER,
+    dateEnd: {
+      type: DataTypes.DATE,
+      validate: {
+        isDate: true,
+      },
       allowNull: true,
-    },
-    requirementId: {
-      type: DataTypes.INTEGER,
     },
   },
   {
@@ -77,21 +61,11 @@ const Profile = Model.define(
       requirement() {
         return this.Requirement;
       },
-
-      partner() {
-        // TODO too many requests
-        return Model.query('EXEC GetCurrentPartnerById :id', {
-          type: QueryTypes.SELECT,
-          replacements: {
-            id: this.id,
-          },
-        }).then(res => (res.length && res[0]) || null);
-      },
     },
   },
 );
 
-Profile.findById = function(id) {
+Pair.findById = function(id) {
   return this.find({
     where: {
       id,
@@ -99,7 +73,7 @@ Profile.findById = function(id) {
   });
 };
 
-Profile.destroyById = function(id) {
+Pair.destroyById = function(id) {
   return this.destroy({
     where: {
       id,
@@ -107,4 +81,18 @@ Profile.destroyById = function(id) {
   });
 };
 
-export default Profile;
+Pair.create = function(firstPartnerId, secondPartnerId, dateStart) {
+  return Model.query(
+    'EXEC PairCreate :firstPartnerId, :secondPartnerId, :dateStart',
+    {
+      type: QueryTypes.SELECT,
+      replacements: {
+        firstPartnerId,
+        secondPartnerId,
+        dateStart,
+      },
+    },
+  );
+};
+
+export default Pair;

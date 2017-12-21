@@ -49,13 +49,14 @@ class Profiles extends React.Component {
             defaultPageSize={10}
             className="-striped -highlight"
             SubComponent={({
-              original: { id, interests, name, requirement },
+              original: { id, interests, name, requirement, partner },
             }) =>
               <ProfileDetails
                 id={id}
                 name={name}
                 interests={interests}
                 requirement={requirement}
+                partner={partner}
               />}
           />
         </div>

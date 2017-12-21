@@ -1,0 +1,3 @@
+mutation pairCreate($firstPartnerId: Int!, $secondPartnerId: Int!) {
+  pairCreate(firstPartnerId: $firstPartnerId, secondPartnerId: $secondPartnerId)
+}
