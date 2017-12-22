@@ -1,4 +1,5 @@
 import { DataTypes, QueryTypes } from 'sequelize';
+import * as _ from 'lodash';
 import moment from 'moment';
 import Model from '../sequelize';
 
@@ -93,6 +94,28 @@ Pair.create = function(firstPartnerId, secondPartnerId, dateStart) {
       },
     },
   );
+};
+
+Pair.getAll = function() {
+  return Model.query('SELECT * FROM [dbo].[PairsGet]', {
+    model: Pair,
+    type: QueryTypes.RAW,
+  })
+    .then(recordSets => recordSets[0])
+    .then(pairs =>
+      pairs.map(pair => {
+        const mappedPair = {};
+        Object.keys(pair).forEach(key => {
+          const origVal = pair[key];
+          const val =
+            (key === 'dateStart' || key === 'dateEnd') && origVal
+              ? moment.utc(new Date(origVal)).format('YYYY-MM-DD')
+              : origVal;
+          _.set(mappedPair, key, val);
+        });
+        return mappedPair;
+      }),
+    );
 };
 
 export default Pair;

@@ -25,6 +25,7 @@
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-style-loader": "^4.0.0",
     "jsonwebtoken": "^7.4.1",
+    "lodash": "^4.17.4",
     "moment": "^2.19.2",
     "node-fetch": "^1.7.1",
     "normalize.css": "^7.0.0",

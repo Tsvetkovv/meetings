@@ -1,0 +1,15 @@
+query Pairs {
+  pairs {
+    id
+    firstPartner {
+      id
+      name
+    }
+    secondPartner {
+      id
+      name
+    }
+    dateStart
+    dateEnd
+  }
+}

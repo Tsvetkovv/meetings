@@ -11,6 +11,9 @@ class Navigation extends React.Component {
         <Link className={s.link} to="/profiles">
           Profiles
         </Link>
+        <Link className={s.link} to="/pairs">
+          Pairs
+        </Link>
         <Link className={s.link} to="/about">
           About
         </Link>

@@ -1,5 +1,6 @@
 import sequelize from '../sequelize';
 import Profile from './Profile';
+import Pair from './Pair';
 import City from './City';
 import Goal from './Goal';
 import Interest from './Interest';
@@ -23,6 +24,15 @@ Profile.belongsTo(Requirement, {
 Profile.belongsToMany(Interest, {
   through: 'ProfilesInterests',
   foreignKey: 'profileId',
+});
+
+Pair.belongsTo(Profile, {
+  foreignKey: 'firstPartnerId',
+  targetKey: 'id',
+});
+Pair.belongsTo(Profile, {
+  foreignKey: 'secondPartnerId',
+  targetKey: 'id',
 });
 
 Interest.belongsToMany(Requirement, {
