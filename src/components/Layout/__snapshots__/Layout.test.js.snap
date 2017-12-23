@@ -66,7 +66,7 @@ exports[`Layout renders children correctly 1`] = `
         <span
           className="brandTxt"
         >
-          Your Company
+          Meetings
         </span>
       </a>
       <div
@@ -120,7 +120,7 @@ exports[`Layout renders children correctly 1`] = `
       <span
         className="text"
       >
-        © Your Company
+        © Meetings
       </span>
       <span
         className="spacer"

@@ -4,7 +4,7 @@ import Layout from '../../components/Layout';
 
 async function action() {
   return {
-    chunks: ['profiles'],
+    chunks: ['addProfile'],
     title: 'AddProfile',
     component: (
       <Layout>

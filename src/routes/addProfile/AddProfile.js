@@ -49,7 +49,7 @@ const length = val => !val || val.length >= 3;
     })
       .then(
         /* data */ () => {
-          history.push('/profiles');
+          history.push('/');
         },
       )
       .catch(e => {
@@ -58,7 +58,11 @@ const length = val => !val || val.length >= 3;
 })
 class AddProfile extends React.Component {
   static propTypes = {
-    toggleMutation: PropTypes.func.isRequired,
+    toggleMutation: PropTypes.func,
+  };
+
+  static defaultProps = {
+    toggleMutation: null,
   };
 
   handleSubmit = ({
