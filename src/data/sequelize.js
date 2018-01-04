@@ -1,5 +1,6 @@
-import { Sequelize, DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import { db } from '../config';
+import logger from './logger';
 
 const sequelize = new Sequelize(db.table, db.login, db.password, {
   host: db.url,
@@ -15,7 +16,7 @@ const sequelize = new Sequelize(db.table, db.login, db.password, {
     timestamps: false,
   },
   // eslint-disable-next-line no-console
-  logging: console.log,
+  logging: msg => logger.info(msg),
 });
 
 export default sequelize;
